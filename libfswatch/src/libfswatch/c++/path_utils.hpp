@@ -48,11 +48,14 @@ namespace fsw
    * @c false otherwise.
    *
    * @param path The path to resolve.
+   * @param st_size The length in bytes of the pathname contained in the symbolic link.
    * @param link_path A reference to a `std::string` where the resolved absolute
    * path should be copied to.
    * @return @c true if the function succeeds, @c false otherwise.
    */
-  bool read_link_path(const std::string& path, std::string& link_path);
+  bool read_link_path(const std::string& path,
+                      const off_t st_size,
+                      std::string& link_path);
 
   /**
    * @brief Wraps a @c lstat(path, fd_stat) call that invokes @c perror() if it

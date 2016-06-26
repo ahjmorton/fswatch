@@ -21,6 +21,7 @@
 #include <cstdio>
 #include <errno.h>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -55,15 +56,21 @@ namespace fsw
     return children;
   }
 
-  bool read_link_path(const string& path, string& link_path)
+  bool read_link_path(const string& path,
+                      const off_t st_size,
+                      string& link_path)
   {
-    char *real_path = realpath(path.c_str(), nullptr);
-    link_path = (real_path ? real_path : path);
+    char buf[st_size + 1];
+    ssize_t len;
 
-    bool ret = (real_path != nullptr);
-    free(real_path);
+    bool resolved = ((len = readlink(path.c_str(), buf, sizeof(buf) - 1)) != -1);
 
-    return ret;
+    if (resolved)
+      buf[len] = '\0';
+
+    link_path = (resolved ? buf : path);
+
+    return resolved;
   }
 
   bool stat_path(const string& path, struct stat& fd_stat)

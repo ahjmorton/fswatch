@@ -130,7 +130,7 @@ namespace fsw
     if (follow_symlinks && S_ISLNK(fd_stat.st_mode))
     {
       string link_path;
-      if (read_link_path(path, link_path))
+      if (read_link_path(path, fd_stat.st_size, link_path))
         scan(link_path, fn);
 
       return;
