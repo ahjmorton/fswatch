@@ -406,10 +406,7 @@ static void start_monitor(int argc, char **argv, int optind)
 
   for (auto i = optind; i < argc; ++i)
   {
-    char *real_path = realpath(argv[i], nullptr);
-    string path(real_path ? real_path : argv[i]);
-
-    if (real_path) free(real_path);
+    string path(argv[i]);
 
     FSW_ELOGF(_("Adding path: %s\n"), path.c_str());
 
