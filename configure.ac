@@ -67,8 +67,6 @@ AX_CXXFLAGS_WARN_ALL
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([unistd.h])
-AS_VAR_IF([ac_cv_header_unistd_h], ["yes"], [], [AC_MSG_ERROR([The unistd.h header cannot be found.])])
 
 # Check for optional header files.
 AC_CHECK_HEADERS([getopt.h])
