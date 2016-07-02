@@ -80,6 +80,7 @@ AC_CHECK_LIB([pthread], [pthread_create])
 AC_CHECK_HEADERS([cstdlib],  [], [AC_MSG_ERROR([A required header file is missing.])])
 AC_CHECK_HEADERS([unistd.h], [], [AC_MSG_ERROR([A required header file is missing.])])
 AC_CHECK_HEADERS([fcntl.h],  [], [AC_MSG_ERROR([A required header file is missing.])])
+AC_CHECK_HEADERS([libgen.h], [], [AC_MSG_ERROR([A required header file is missing.])])
 
 # Check for optional header files
 AC_CHECK_HEADERS([unordered_map unordered_set])
@@ -247,6 +248,8 @@ AC_CHECK_FUNCS([modf],     [], [AC_MSG_ERROR([The modf function cannot be found.
 AC_CHECK_FUNCS([realpath], [], [AC_MSG_ERROR([The realpath function cannot be found.])])
 AC_CHECK_FUNCS([regcomp],  [], [AC_MSG_ERROR([The regcomp function cannot be found.])])
 AC_CHECK_FUNCS([select],   [], [AC_MSG_ERROR([The select function cannot be found.])])
+AC_CHECK_FUNCS([dirname],  [], [AC_MSG_ERROR([The dirname function cannot be found.])])
+AC_CHECK_FUNCS([readlink], [], [AC_MSG_ERROR([The dirname function cannot be found.])])
 
 AX_CXX_HAVE_THREAD_LOCAL
 
