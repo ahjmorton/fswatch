@@ -189,7 +189,7 @@ namespace fsw
     {
       string link_path;
       if (read_link_path(path, fd_stat.st_size, link_path))
-        return scan(link_path);
+        return scan(link_path, is_root_path);
 
       return false;
     }
