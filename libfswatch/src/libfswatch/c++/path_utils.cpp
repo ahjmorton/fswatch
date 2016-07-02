@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <iostream>
 #include <unistd.h>
+#include <libgen.h>
 
 using namespace std;
 
@@ -63,14 +64,32 @@ namespace fsw
     char buf[st_size + 1];
     ssize_t len;
 
-    bool resolved = ((len = readlink(path.c_str(), buf, sizeof(buf) - 1)) != -1);
-
-    if (resolved)
+    if ((len = readlink(path.c_str(), buf, sizeof(buf) - 1)) != -1)
+    {
       buf[len] = '\0';
 
-    link_path = (resolved ? buf : path);
+      // If the path is relative, prepend its parent
+      if (buf[0] != '/')
+      {
+        // Prepare argument to dirname: copy to a non-const buffer.
+        char dirname_arg[path.length() + 1];
+        path.copy(dirname_arg, path.length(), 0);
+        dirname_arg[path.length()] = '\0';
 
-    return resolved;
+        link_path = dirname(dirname_arg);
+        link_path += "/";
+      }
+
+      link_path += buf;
+
+      return true;
+    }
+    else
+    {
+      link_path = path;
+
+      return false;
+    }
   }
 
   bool stat_path(const string& path, struct stat& fd_stat)
