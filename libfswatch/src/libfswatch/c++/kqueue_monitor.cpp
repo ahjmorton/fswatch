@@ -75,15 +75,15 @@ namespace fsw
     }
   };
 
-  typedef struct KqueueFlagType
+  typedef struct kqueue_flag_type
   {
     uint32_t flag;
     fsw_event_flag type;
-  } KqueueFlagType;
+  } kqueue_flag_type;
 
-  static vector<KqueueFlagType> create_flag_type_vector()
+  static vector<kqueue_flag_type> create_flag_type_vector()
   {
-    vector<KqueueFlagType> flags;
+    vector<kqueue_flag_type> flags;
     flags.push_back({NOTE_DELETE, fsw_event_flag::Removed});
     flags.push_back({NOTE_WRITE, fsw_event_flag::Updated});
     flags.push_back({NOTE_EXTEND, fsw_event_flag::PlatformSpecific});
@@ -95,7 +95,7 @@ namespace fsw
     return flags;
   }
 
-  static const vector<KqueueFlagType> event_flag_type = create_flag_type_vector();
+  static const vector<kqueue_flag_type> event_flag_type = create_flag_type_vector();
 
   REGISTER_MONITOR_IMPL(kqueue_monitor, kqueue_monitor_type);
 
@@ -116,7 +116,7 @@ namespace fsw
   {
     vector<fsw_event_flag> evt_flags;
 
-    for (const KqueueFlagType& type : event_flag_type)
+    for (const kqueue_flag_type& type : event_flag_type)
     {
       if (flag & type.flag)
       {
